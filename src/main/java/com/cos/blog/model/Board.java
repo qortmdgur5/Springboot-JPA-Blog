@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,11 +42,11 @@ public class Board {
 	@ColumnDefault("0")
 	private int count;  //조회수
 	
-	@ManyToOne	//Many = Board, User = one	한명의 사용자가 여러 게시글을 작성
+	@ManyToOne(fetch = FetchType.EAGER)	//Many = Board, User = one	한명의 사용자가 여러 게시글을 작성
 	@JoinColumn(name="userId")
 	private User user; //DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장할 수 있다.
 	
-	@OneToMany(mappedBy = "board")	//하나의 게시글은 여러개의 댓글, mappedBy는 연관관계의 주인이 아니다 (난 FK가 아니에요) DB 에 칼럼을 만들지 x
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)	//하나의 게시글은 여러개의 댓글, mappedBy는 연관관계의 주인이 아니다 (난 FK가 아니에요) DB 에 칼럼을 만들지 x
 	private List<Reply> reply;
 	
 	@CreationTimestamp
