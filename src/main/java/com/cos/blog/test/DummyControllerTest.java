@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.blog.model.RoleType;
@@ -58,7 +57,7 @@ public class DummyControllerTest {
 		System.out.println("password : " + requestUser.getPassword());
 		System.out.println("email: " + requestUser.getEmail());
 		
-		User user = userRepository.findById(id).orElseThrow(()->{
+		User user = userRepository.findById(id).orElseThrow(()->{	//람다식
 			return new IllegalArgumentException("수정에 실패하였습니다.");
 		});
 		user.setPassword(requestUser.getPassword());
