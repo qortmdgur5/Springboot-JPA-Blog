@@ -33,6 +33,12 @@ public class BoardController {
 		return "board/detail";
 	}
 	
+	@GetMapping("board/{id}/updateForm")
+	public String updateForm(@PathVariable int id, Model model) {
+		model.addAttribute("board", boardService.글상세보기(id));
+		return "board/updateForm";
+	}
+	
 	// USER 권한도 같이 가져와야함, 작성자 정보를 알아야 하니까
 	@GetMapping("/board/saveForm")
 	public String saveForm() {

@@ -3,9 +3,11 @@ let index = {
 		$("#btn-save").on("click", () => {		//on("이벤트", 행위), function(){}, 대신에 ()=>{}	this를 바인딩하기위해														 
 			this.save();
 		});
-		
 		$("#btn-delete").on("click", () => {		//on("이벤트", 행위), function(){}, 대신에 ()=>{}	this를 바인딩하기위해														 
 			this.deleteById();
+		});
+		$("#btn-update").on("click", () => {		//on("이벤트", 행위), function(){}, 대신에 ()=>{}	this를 바인딩하기위해														 
+			this.update();
 		});
 	}
 	,
@@ -31,7 +33,7 @@ let index = {
 	},
 	
 	deleteById: function() {
-		var id = $("#id").text();		//삭제를 할땐 val() 값이 아닌 text() 값을 가져와야함
+		let id = $("#id").text();		//삭제를 할땐 val() 값이 아닌 text() 값을 가져와야함
 		
 		$.ajax({
 			type: "DELETE",
@@ -39,6 +41,29 @@ let index = {
 			dataType: "json"
 		}).done(function(resp) { 
 			alert("삭제가 완료되었습니다.");
+			location.href = "/";
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
+	},
+	
+	update: function() {
+		let id = $("#id").val();
+		
+		let data = {
+			title: $("#title").val(),
+			content: $("#content").val(),
+		};
+ 
+
+		$.ajax({
+			type: "PUT",
+			url: "/api/board/"+id, 
+			data: JSON.stringify(data), 
+			contentType: "application/json; charset=utf-8", 
+			dataType: "json"
+		}).done(function(resp) { 
+			alert("글수정이 완료되었습니다.");
 			location.href = "/";
 		}).fail(function(error) {
 			alert(JSON.stringify(error));
